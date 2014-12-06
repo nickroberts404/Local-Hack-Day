@@ -19,13 +19,27 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
     <script type="text/javascript">
+            var ref = new Firebase("https://movie-match.firebaseio.com");
+    ref.onAuth(function(authData) {
+      if (authData) {
+        // user authenticated with Firebase
+        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+      } else {
+        // user is logged out
+      }
+    });
         var chatRef = new firebase('https://movie-match.firebase.com');
         var auth = new firebaseSimpleLogin(chatRef, function(error, user){
     $(function() {
         $("#fblogin").click(function(){
-          ref.authWithOAuthPopup("facebook", function(error, authData) { ... });  
+          auth.login('facebook',  {
+            rememberMe: true;
+            scope: 'email,user_likes'
     });
 });
+        
     </script>
+    
+    <a href="#" id="fblogin">FB login</a>
 </body>
 </html>
