@@ -1,9 +1,10 @@
 body { 
-  background: url(../media/dude-standing.jpg) no-repeat center center fixed; 
+  background: url(../media/oldtime.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow-x:hidden;
 }
 header{
 	text-align:center;

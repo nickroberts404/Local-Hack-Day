@@ -25,8 +25,45 @@
 	   				</div>
 	   	</div>
    	</div>
+   	<div id="movie-container">
+
+   	</div>
 
    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
+   <script>
+   		$('#go-button').on('click', searchForMovies);
+
+   		function searchForMovies(){
+   			var searchString = $('#search-bar').val();
+   			console.log(searchString);
+   			searchTitle(searchString);
+   		}
+	   	function searchTitle(title) {
+			var result = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?q=";
+			result += title;
+			result += "&page_limit=10&page=1&apikey=mhev5k6bwufz7q5drc9yk7nr";
+			$(document).ready(function () {
+		        $.ajax({
+		            type: 'GET',
+		            url: result,
+		            dataType: 'jsonp',
+		            success: function (data) {
+		            	displayMovies(data.movies);
+		            }
+		        });
+			});
+		}
+		function displayMovies(movieList){
+			for(var i=0; i< movieList.length; i++){
+				console.log(movieList[i]);
+				var movieTitle = movieList[i].title;
+				var audienceRating = movieList[i].ratings.audience_score;
+				var criticRating = movieList[i].ratings.critics_score;
+				$('#movie-container').append();
+			}
+		}
+
+   </script>
 </body>
 </html>
