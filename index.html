@@ -10,12 +10,25 @@
     </script>
 </head>
 <body>
-   		<header>
-   			<h1><a href="index.html">MovieMatch</a></h1>
-   		</header>
-    
-   		<input type="search" id="search-bar" placeholder = "Search movies...">
-   		
+	<header>
+		<h1><a href="index.html">MovieMatch</a></h1>
+	</header>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="row">
+				<div class="col-sm-8">
+	   				<input class="form-control" type="text" id="search-bar" placeholder = "Search movies...">
+	   			</div>
+	   			<div class="col-sm-2">
+	   				<button class="btn btn-primary">In Theatres<button>
+	   			</div>
+	   			<div class="col-sm-2">
+	   				<button class="btn btn-primary">Popular</button>
+	   			</div>
+	   		</div>
+	   	</div>
+   	</div>
+
    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
 </body>
