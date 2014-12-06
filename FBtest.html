@@ -20,25 +20,7 @@
     <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
     <script type="text/javascript">
         var ref = new Firebase('https://movie-match.firebaseio.com');
-       /*
-        var auth = new FirebaseSimpleLogin(chatRef, function(error, user){
-            
-            chatRef.onAuth(function(authData) {
-      if (authData) {
-        // user authenticated with Firebase
-        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
-      } 
-        else if(error){
-            console.log(error);
-        }
-        else {
-        // user is logged out
-          console.log("User logged out.");
-      }
-                                                }
-);
-
-                                    }); */
+       
         ref.authWithOAuthPopup("facebook", function(error, authData) {
   if (authData) {
     // the access token will allow us to make Open Graph API calls
