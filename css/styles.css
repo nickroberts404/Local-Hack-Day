@@ -8,17 +8,19 @@ body {
 header{
 	text-align:center;
 } 
-header>a{
+header a{
 	color:white;
+	font-size:100px;
+	font-weight: bold;
 }
-a:hover{
-	
+header a:hover{
+	color: lightblue;
 }
 
 #search-bar{
 	display: block;
 	margin: 0 auto;
-	width: 600px;
+	width: 75%;
 	height: 75px;
 	border-radius:40px;
 	background: #eee;
