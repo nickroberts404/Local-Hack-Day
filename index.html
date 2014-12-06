@@ -33,6 +33,7 @@
    <script src="js/bootstrap.min.js"></script>
    <script>
    		$('#go-button').on('click', searchForMovies);
+   		$('#theatre-button').on('click', showTheatreMovies);
 
    		function searchForMovies(){
    			var searchString = $('#search-bar').val();
@@ -62,17 +63,31 @@
 				var current = movieList[i];
 				var movieTitle = current.title;
 				var movieYear = current.year;
+				var poster = current.posters.original;
 				var movieLink = current.links.alternate;
 				var movieSummary = current.synopsis.substr(0, 300);
-				var audienceRating = 'Audience Rating: '+current.ratings.audience_score;
-				var criticRating = 'Critic Rating: '+current.ratings.critics_score;
+				if(current.synopsis!='' && current.synopsis!= null) var movieSummary = current.synopsis.substr(0, 300);
+				else var movieSummary = '<span class="nodata">no data</span>';
 				if(current.ratings.audience_score == -1) var audienceRating = 'Audience Rating: <span class="nodata">no data</span>';
 				else var audienceRating = 'Audience Rating: '+current.ratings.audience_score;
 				if(current.ratings.critics_score == -1) var criticRating = 'Critic Rating: <span class="nodata">no data</span>';
 				else var criticRating = 'Critic Rating: '+current.ratings.critics_score;
-				var thePanel = '<div class="row"> <div class="col-sm-8 col-sm-offset-2"> <div class="panel panel-default movie-panel"> <div class="panel-heading movie-title"> <h2>'+movieTitle+' ('+movieYear+')</h2> </div> <div class="panel-body movie-panel-body"> <div class="panel-summary">'+movieSummary+'...</div> <div class="panel-ratings audience-ratings">'+audienceRating+'</div> <div class="panel-ratings critic-ratings">'+criticRating+'</div> <div class="panel-buttons pull-right"> <button class="btn btn-danger like-button">I Like! <i class="glyphicon glyphicon-heart"></i></button> <a target = "_blank" href="'+movieLink+'"><button class="btn btn-primary more-button">More</button></a> </div> </div> </div> </div> </div>'
+				var thePanel = '<div class="row"> <div class="col-sm-8 col-sm-offset-2"> <div class="panel panel-default movie-panel"> <div class="panel-heading movie-title"> <h2>'+movieTitle+' ('+movieYear+')</h2> </div> <div class="panel-body movie-panel-body"> <img src="'+poster+'"> <h3>Summary:</h3> <div class="panel-summary">'+movieSummary+'</div> <div class="panel-ratings"> <div class="audience-ratings">'+audienceRating+'</div> <div class="critic-ratings">'+criticRating+'</div> </div> <div class="panel-buttons pull-right"> <button class="btn btn-danger btn-lg like-button">I Like! <i class="glyphicon glyphicon-heart"></i></button> <a target = "_blank" href="'+movieLink+'"><button class="btn btn-primary btn-lg more-button">More</button></a> </div> </div> </div> </div> </div>'
 				$('#movie-container').append(thePanel);
 			}
+		}
+		function showTheatreMovies(){
+			console.log("party");
+			$(document).ready(function () {
+		        $.ajax({
+		            type: 'GET',
+		            url: 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=16&page=1&country=us&apikey=mhev5k6bwufz7q5drc9yk7nr',
+		            dataType: 'jsonp',
+		            success: function (data) {
+		                displayMovies(data.movies);
+		            }
+		        });
+			});
 		}
 
 		function compareYear(a,b) {
