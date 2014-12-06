@@ -24,7 +24,7 @@
 	   					</span>
 	   				</div>
 	   	</div>
-   	</div>
+   	</div><br>
    	<div id="movie-container">
 
    	</div>
@@ -55,14 +55,29 @@
 			});
 		}
 		function displayMovies(movieList){
+			$('#movie-container').html('');
+			movieList = movieList.sort(compareYear);
 			for(var i=0; i< movieList.length; i++){
 				console.log(movieList[i]);
-				var movieTitle = movieList[i].title;
-				var audienceRating = movieList[i].ratings.audience_score;
-				var criticRating = movieList[i].ratings.critics_score;
-				$('#movie-container').append();
+				var current = movieList[i];
+				var movieTitle = current.title;
+				var movieYear = current.year;
+				var movieSummary = current.synopsis;
+				var audienceRating = current.ratings.audience_score;
+				var criticRating = current.ratings.critics_score;
+				var thePanel = '<div class="row"><div class="col-sm-8 col-sm-offset-2"><div class="panel panel-default movie-panel"> <div class="panel-heading movie-title"><h2>'+movieTitle+'('+movieYear+')</h2></div> <div class="panel-body movie-panel-body">'+movieSummary+'</div> </div> </div> </div>';
+				$('#movie-container').append(thePanel);
 			}
 		}
+
+		function compareYear(a,b) {
+		  if (a.year < b.year)
+		     return 1;
+		  if (a.year > b.year)
+		    return -1;
+		  return 0;
+		}
+
 
    </script>
 </body>
