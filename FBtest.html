@@ -24,9 +24,9 @@
         var ref = new Firebase('https://movie-match.firebaseio.com');
        
       
-         $("#fblogin").click(function () {callFB();});
+         $("#fblogin").click(function () {
            
-       function callFB(){
+      
             ref.authWithOAuthPopup("facebook", function(error, authData) {
                     if (authData) {
                         // the access token will allow us to make Open Graph API calls
@@ -36,7 +36,7 @@
             { 
                     scope: "email,user_likes" // the permissions requested
             });
-       }
+       });
     </script>
     
     
