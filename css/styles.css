@@ -1,3 +1,27 @@
+body { 
+  background: url(../media/dude-standing.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 header{
 	text-align:center;
+} 
+header>a{
+	color:white;
+}
+a:hover{
+	
+}
+
+#search-bar{
+	display: block;
+	margin: 0 auto;
+	width: 600px;
+	height: 75px;
+	border-radius:40px;
+	background: #eee;
+	outline: none;
+	border: none;
 }
