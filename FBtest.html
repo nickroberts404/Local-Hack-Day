@@ -18,11 +18,14 @@
    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
+    <a href="#" id="fblogin">FB login</a>
     <script type="text/javascript">
+        
         var ref = new Firebase('https://movie-match.firebaseio.com');
        
-
-         $("#fblogin").on('click', callFB());
+      
+         $("#fblogin").click(function () {callFB();});
+           
        function callFB(){
             ref.authWithOAuthPopup("facebook", function(error, authData) {
                     if (authData) {
@@ -36,6 +39,6 @@
        }
     </script>
     
-    <a href="#" id="fblogin">FB login</a>
+    
 </body>
 </html>
