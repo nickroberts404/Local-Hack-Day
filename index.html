@@ -62,10 +62,15 @@
 				var current = movieList[i];
 				var movieTitle = current.title;
 				var movieYear = current.year;
-				var movieSummary = current.synopsis;
-				var audienceRating = current.ratings.audience_score;
-				var criticRating = current.ratings.critics_score;
-				var thePanel = '<div class="row"><div class="col-sm-8 col-sm-offset-2"><div class="panel panel-default movie-panel"> <div class="panel-heading movie-title"><h2>'+movieTitle+'('+movieYear+')</h2></div> <div class="panel-body movie-panel-body">'+movieSummary+'</div> </div> </div> </div>';
+				var movieLink = current.links.alternate;
+				var movieSummary = current.synopsis.substr(0, 300);
+				var audienceRating = 'Audience Rating: '+current.ratings.audience_score;
+				var criticRating = 'Critic Rating: '+current.ratings.critics_score;
+				if(current.ratings.audience_score == -1) var audienceRating = 'Audience Rating: <span class="nodata">no data</span>';
+				else var audienceRating = 'Audience Rating: '+current.ratings.audience_score;
+				if(current.ratings.critics_score == -1) var criticRating = 'Critic Rating: <span class="nodata">no data</span>';
+				else var criticRating = 'Critic Rating: '+current.ratings.critics_score;
+				var thePanel = '<div class="row"> <div class="col-sm-8 col-sm-offset-2"> <div class="panel panel-default movie-panel"> <div class="panel-heading movie-title"> <h2>'+movieTitle+' ('+movieYear+')</h2> </div> <div class="panel-body movie-panel-body"> <div class="panel-summary">'+movieSummary+'...</div> <div class="panel-ratings audience-ratings">'+audienceRating+'</div> <div class="panel-ratings critic-ratings">'+criticRating+'</div> <div class="panel-buttons pull-right"> <button class="btn btn-danger like-button">I Like! <i class="glyphicon glyphicon-heart"></i></button> <a target = "_blank" href="'+movieLink+'"><button class="btn btn-primary more-button">More</button></a> </div> </div> </div> </div> </div>'
 				$('#movie-container').append(thePanel);
 			}
 		}
