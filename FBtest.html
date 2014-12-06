@@ -21,26 +21,35 @@
     <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
   
     <script type="text/javascript">
+        var ref = new Firebase("https://movie-match.firebaseio.com");
         
-       
-        var ref = new Firebase('https://movie-match.firebaseio.com');
+         var isNewUser = true;
+    ref.onAuth(function(authData) {
+      if (authData && isNewUser) {
+        // user authenticated with Firebase
+        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+        ref.child('users').child(authData.uid).set(authData);
+      } 
+        else {
+        // user is logged out
+      }
+    }); 
       
          $("#fblogin").click(function () {
-             console.log("MADE IT PAST THERE");
-              ref.authWithOAuthPopup("facebook", function(error, authData) {
-                  console.log("MADE IT TIER 2");
-  if (authData) {
-      console.log("MADE IT TIER 3");
-    // the access token will allow us to make Open Graph API calls
-    console.log(authData.facebook.accessToken);
-  }
-}, {
+
+             ref.authWithOAuthRedirect("facebook", function(error, authData) {
+                 console.log("THIS IS A TEST");
+                 console.log(authData.facebook.accessToken);
+          
                  
-  scope: "email,user_likes" // the permissions requested
-});
+                    
+                 });
             });
-        
-       
+    
+
+
+
+
         
     </script>
     
