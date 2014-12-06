@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     
         
-    </script>
+    
 </head>
 <body>
    		<header>
@@ -19,25 +19,41 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
     <script type="text/javascript">
-            var ref = new Firebase("https://movie-match.firebaseio.com");
-    ref.onAuth(function(authData) {
+        var ref = new Firebase('https://movie-match.firebaseio.com');
+       /*
+        var auth = new FirebaseSimpleLogin(chatRef, function(error, user){
+            
+            chatRef.onAuth(function(authData) {
       if (authData) {
         // user authenticated with Firebase
         console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
-      } else {
+      } 
+        else if(error){
+            console.log(error);
+        }
+        else {
         // user is logged out
+          console.log("User logged out.");
       }
-    });
-        var chatRef = new firebase('https://movie-match.firebase.com');
-        var auth = new firebaseSimpleLogin(chatRef, function(error, user){
-    $(function() {
-        $("#fblogin").click(function(){
-          auth.login('facebook',  {
-            rememberMe: true;
-            scope: 'email,user_likes'
-    });
+                                                }
+);
+
+                                    }); */
+        ref.authWithOAuthPopup("facebook", function(error, authData) {
+  if (authData) {
+    // the access token will allow us to make Open Graph API calls
+    console.log(authData.facebook.accessToken);
+  }
+}, {
+  scope: "email,user_likes" // the permissions requested
 });
-        
+         $("#fblogin").click(function(){
+              auth.login('facebook',  {
+                rememberMe: true,
+                scope: 'email,user_likes'
+              });
+        });      
+       
     </script>
     
     <a href="#" id="fblogin">FB login</a>
