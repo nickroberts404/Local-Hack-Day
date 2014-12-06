@@ -10,6 +10,10 @@
     </script>
 </head>
 <body>
+	<div id="user-box">
+		<div id="user-image"></div>
+		<div id="user-list"></div>
+	</div>
 	<header>
 		<h1><a href="index.html">MovieMatch</a></h1>
 	</header>
@@ -63,7 +67,7 @@
 				var current = movieList[i];
 				var movieTitle = current.title;
 				var movieYear = current.year;
-				var poster = current.posters.original;
+				var poster = current.posters.profile;
 				var movieLink = current.links.alternate;
 				var movieSummary = current.synopsis.substr(0, 300);
 				if(current.synopsis!='' && current.synopsis!= null) var movieSummary = current.synopsis.substr(0, 300);
