@@ -99,8 +99,9 @@
           {fields: 'name,id'},
         function (response) {
         if (response && !response.error) {
-            console.log(response.data.name);
-            /* handle the result */
+            $.each(response.data,function(index,friend) {
+                console.log(friend.name + ' has id:' + friend.id);
+            })
       }
     }
 );
