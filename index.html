@@ -10,16 +10,16 @@
     </script>
 </head>
 <body>
-	<!-- <div id="user-box">
+	<div id="user-box" hidden>
 		<div id="user-image"></div>
-		<div id="user-list"></div>
-	</div> -->
+		<div id="user-name"></div>
+	</div>
 	<div id="welcome">Welcome to...</div>
 	<header>
 		<h1><a href="index.html">MovieMatch</a></h1>
 	</header>
 	<div id="login">
-		<div id="login-title">Login</div>
+		<button class="btn btn-primary" id="fblogin">Login using Facebook</button>
 	</div>
 	<div class="row" hidden>
 		<div class="col-sm-8 col-sm-offset-2">
@@ -39,6 +39,7 @@
 
    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
+   <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
    <script>
    		$('#go-button').on('click', searchForMovies);
    		$('#theatre-button').on('click', showTheatreMovies);
@@ -105,8 +106,60 @@
 		    return -1;
 		  return 0;
 		}
+       var infostuff = '';
 
+
+		//
+		// FIREBASE
+		//
+
+		var ref = new Firebase("https://movie-match.firebaseio.com");
+        
+         var isNewUser = true;
+    ref.onAuth(function(authData) {
+      if (authData && isNewUser) {
+        // user authenticated with Firebase
+        console.log("User ID: " + authData.uid + ", Provider: " + authData.provider);
+        ref.child('users').child(authData.uid).set(authData);
+        $('#welcome').fadeOut();
+        $('#login').fadeOut();
+        $('.row').fadeIn();
+        $('#user-box').fadeIn();
+        displayinfo(authData.uid);
+      } 
+        else {
+        // user is logged out
+      }
+    },{
+        scope: "user_friends,public_profile"  
+    }); 
+      
+         $("#fblogin").click(function () {
+
+             ref.authWithOAuthRedirect("facebook", function(error, authData) {
+                 console.log("THIS IS A TEST");
+                 console.log(authData.facebook.accessToken);
+                    
+                 });
+    });
+
+    function displayinfo(userID){
+        console.log(userID);
+        userID = userID.replace('facebook:', '');
+    	user= new Firebase ('https://movie-match.firebaseio.com/users/facebook%3A'+userID);
+    	user.on("value", function(snapshot) {
+		    var theUser = snapshot.val();
+            var yourImage = theUser.facebook.cachedUserProfile.picture.data.url
+            var yourName = theUser.facebook.cachedUserProfile.name
+            $('#user-image').css('background-image', 'url('+yourImage+')');
+            $('#user-name').html(yourName);
+		}, function (errorObject) {
+		  console.log("The read failed: " + errorObject.code);
+		});
+    }
+       
 
    </script>
+    }
 </body>
 </html>
