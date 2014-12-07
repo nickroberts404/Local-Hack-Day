@@ -26,9 +26,9 @@
 					<div class="input-group" id="searchin">
 	   					<input class="form-control" type="text" id="search-bar" placeholder = "Search movies...">
 	   					<span class="input-group-btn">
-	   						<button class="btn btn-warning search-button" id="popular-button"><i class="glyphicon glyphicon-star"></i></button>
-	   						<button class="btn btn-success search-button" id="theatre-button"><i class="glyphicon glyphicon-film"></i></button>
-	   						<button class="btn btn-primary search-button" id="go-button"><i class="glyphicon glyphicon-search"></i></button>
+	   						<button class="btn btn-warning search-button" id="popular-button" data-toggle="tooltip" title="Upcoming"><i class="glyphicon glyphicon-star"></i></button>
+	   						<button class="btn btn-success search-button" id="theatre-button" data-toggle="tooltip" title="In Theatres"><i class="glyphicon glyphicon-film"></i></button>
+	   						<button class="btn btn-primary search-button" id="go-button" data-toggle="tooltip" title="Search"><i class="glyphicon glyphicon-search"></i></button>
 	   					</span>
 	   				</div>
 	   	</div>
@@ -43,6 +43,7 @@
    <script>
    		$('#go-button').on('click', searchForMovies);
    		$('#theatre-button').on('click', showTheatreMovies);
+   		$('#popular-button').on('click', showUpcomingMovies);
 
    		function searchForMovies(){
    			var searchString = $('#search-bar').val();
@@ -86,7 +87,6 @@
 			}
 		}
 		function showTheatreMovies(){
-			console.log("party");
 			$(document).ready(function () {
 		        $.ajax({
 		            type: 'GET',
@@ -96,6 +96,20 @@
 		                displayMovies(data.movies);
 		            }
 		        });
+			});
+		}
+
+		function showUpcomingMovies(){
+
+			$(document).ready(function () {
+			        $.ajax({
+			            type: 'GET',
+			            url: 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/upcoming.json?page_limit=16&page=1&country=us&apikey=mhev5k6bwufz7q5drc9yk7nr',
+			            dataType: 'jsonp',
+			            success: function (data) {
+			                displayMovies(data.movies);
+			            }
+			        });
 			});
 		}
 
